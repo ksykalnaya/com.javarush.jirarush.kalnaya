@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component("vk")
+@Deprecated
 public class VkOAuth2UserDataHandler implements OAuth2UserDataHandler {
     @Override
     public String getFirstName(OAuth2UserData oAuth2UserData) {
