@@ -1,12 +1,12 @@
 spring.cache.type: none
 app:
-  test-mail: jira4jr@gmail.com
+  test-mail: ${MAIL}
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/jira
-    username: jira
-    password: JiraRush
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 
   sql:
     init:
@@ -18,8 +18,8 @@ spring:
       client:
         registration:
           github:
-            client-id: 3d0d8738e65881fff266
-            client-secret: 0f97031ce6178b7dfb67a6af587f37e222a16120
+            client-id: ${GITHUB_ID}
+            client-secret: ${GITHUB_SECRET}
             scope:
               - email
           google:
