@@ -23,14 +23,14 @@ spring:
             scope:
               - email
           google:
-            client-id: 329113642700-f8if6pu68j2repq3ef6umd5jgiliup60.apps.googleusercontent.com
-            client-secret:
+            client-id: ${GOOGLE_ID}
+            client-secret: ${GOOGLE_SECRET}
             scope:
               - email
               - profile
           gitlab:
-            client-id: b8520a3266089063c0d8261cce36971defa513f5ffd9f9b7a3d16728fc83a494
-            client-secret:
+            client-id: ${GITLAB_ID}
+            client-secret: ${GITLAB_SECRET}
             client-name: GitLab
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             authorization-grant-type: authorization_code
