@@ -27,7 +27,7 @@ spring:
         jdbc.batch_size: 20
   datasource:
     url: jdbc:postgresql://localhost:5432/jira
-    username: jira
+    username: jira1
     password: JiraRush
 
   liquibase:

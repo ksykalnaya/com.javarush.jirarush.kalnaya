@@ -1,12 +1,12 @@
 spring.cache.type: none
 app:
-  test-mail: ${MAIL}
+  test-mail: ${DEV_MAIL}
 
 spring:
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: ${DB_TEST_URL}
+    username: ${DB_DEV_USERNAME}
+    password: ${DB_DEV_PASSWORD}
 
   sql:
     init:

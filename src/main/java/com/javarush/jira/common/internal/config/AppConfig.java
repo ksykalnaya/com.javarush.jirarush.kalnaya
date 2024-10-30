@@ -8,18 +8,19 @@ import com.javarush.jira.common.util.JsonUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.origin.SystemEnvironmentOrigin;
-import org.springframework.boot.system.SystemProperties;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
-import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.http.ProblemDetail;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import javax.sql.DataSource;
 import java.util.Map;
 import java.util.concurrent.Executor;
 
@@ -54,6 +55,31 @@ public class AppConfig {
     public boolean isTest() {
         return env.acceptsProfiles(Profiles.of("test"));
     }
+
+//    @Bean
+//    @Profile("test")
+//    DataSource dataBaseTestConnection() {
+//        DataSource dataSource = DataSourceBuilder.create()
+//                .url("jdbc:h2:mem:public")
+//                .username("sa") //env.getProperty("${DB_TEST_NAME}")
+//                .password("password")
+//                .driverClassName("org.h2.Driver")
+//                .build();
+//        return dataSource;
+//    }
+
+//    @Bean
+//    @Profile("prod")
+//    DataSource dataBaseProdConnection(@Value("${spring.datasource.url}") String url,
+//                                      @Value("${spring.datasource.username}") String name,
+//                                      @Value("${spring.datasource.password}") String psw) {
+//        DataSource dataSource = DataSourceBuilder.create()
+//                .url(url)
+//                .username(name)
+//                .password(psw)
+//                .build();
+//        return dataSource;
+//    }
 
     @Autowired
     void configureAndStoreObjectMapper(ObjectMapper objectMapper) {
