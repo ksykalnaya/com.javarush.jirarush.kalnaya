@@ -28,9 +28,10 @@
 
 Список выполненных задач:
 1) Удалены социальные сети: vk, yandex. Заблокировано на экране. Классы помечены аннотацией @Deprecated
-2) Вынесена информацию в отдельный проперти файл для профиля конфигурации dev. Создан application-dev.yaml
-3) Тесты используют БД (H2). Настройка прописала в application-test.properties. Изменены файлы changelog.sql + data.sql
+2) Вынесена информацию в отдельный проперти файл для профиля конфигурации. Создан application-seсure.properties
+3) Тесты используют БД (H2). Настройка прописала в application-test.properties. Внесены изменения в файлы changelog.sql + data.sql
 4) Написаны тесты для публичных методов контроллера ProfileRestController с положительными и отрицательными сценариями
 5) Произведен рефакторинг метода FileUtil.upload c IO -> NIO
 6) Сделана локализация для стартовой страницы index.html и писем. Property с локалями сохранены в src/main/resources/message
-7) 
+7) Реализован функционал добавления тегов к задаче. Новый метод Put("/tags") в TaskController и Сервис в папке package com.javarush.jira.bugtracking.task.taskTag;
+8) 

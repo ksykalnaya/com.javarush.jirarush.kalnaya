@@ -3,6 +3,9 @@ package com.javarush.jira.bugtracking.task;
 import com.javarush.jira.bugtracking.Handlers;
 import com.javarush.jira.bugtracking.UserBelong;
 import com.javarush.jira.bugtracking.UserBelongRepository;
+import com.javarush.jira.bugtracking.task.taskTag.TaskTag;
+import com.javarush.jira.bugtracking.task.taskTag.TaskTagService;
+import com.javarush.jira.bugtracking.task.taskTag.TaskTagTo;
 import com.javarush.jira.bugtracking.task.to.ActivityTo;
 import com.javarush.jira.bugtracking.task.to.TaskTo;
 import com.javarush.jira.bugtracking.task.to.TaskToExt;
@@ -39,6 +42,7 @@ public class TaskController {
     private final Handlers.TaskHandler handler;
     private final Handlers.ActivityHandler activityHandler;
     private final UserBelongRepository userBelongRepository;
+    private final TaskTagService taskTagService;
 
 
     @GetMapping("/{id}")
@@ -155,5 +159,11 @@ public class TaskController {
         public TaskTreeNode(TaskTo taskTo) {
             this(taskTo, new LinkedList<>());
         }
+    }
+
+    @PutMapping(value ="/tags", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public TaskTag create(@Valid @RequestBody TaskTagTo taskTagTo) {
+        return taskTagService.create(taskTagTo);
     }
 }
