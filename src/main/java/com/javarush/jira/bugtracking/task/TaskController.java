@@ -166,4 +166,16 @@ public class TaskController {
     public TaskTag create(@Valid @RequestBody TaskTagTo taskTagTo) {
         return taskTagService.create(taskTagTo);
     }
+
+    @GetMapping(value ="/activities/count-dev-time/{id}")
+    public ResponseEntity<Long> countDevelopTime(@PathVariable long id) {
+        log.info("count dev time for task id={}", id);
+        return ResponseEntity.ok().body(activityService.countDevTime(id));
+    }
+
+    @GetMapping(value ="/activities/count-test-time/{id}")
+    public ResponseEntity<Long> countTestTime(@PathVariable long id) {
+        log.info("count test time for task id={}", id);
+        return ResponseEntity.ok().body(activityService.countTestTime(id));
+    }
 }

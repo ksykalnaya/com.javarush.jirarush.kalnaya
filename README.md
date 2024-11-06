@@ -34,4 +34,5 @@
 5) Произведен рефакторинг метода FileUtil.upload c IO -> NIO
 6) Сделана локализация для стартовой страницы index.html и писем. Property с локалями сохранены в src/main/resources/message
 7) Реализован функционал добавления тегов к задаче. Новый метод Put("/tags") в TaskController и Сервис в папке package com.javarush.jira.bugtracking.task.taskTag;
-8) 
+8) Добавлено 2 метода для подсчета времени (в часах) задачи в разработке "/activities/count-dev-time/{id}" и 
+в тестировании "/activities/count-test-time/{id}". Реализация в ActivityService. Данные для тестирования добавлены в data.sql с TaskId=13

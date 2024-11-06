@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.javarush.jira.bugtracking.task.TaskUtil.getLatestValue;
@@ -72,5 +74,74 @@ public class ActivityService {
                 task.setTypeCode(latestType);
             }
         }
+    }
+
+    public long countDevTime(long taskId){
+        Task task = taskRepository.getExisted(taskId);
+        List<Activity> activities = handler.getRepository().findAllByTaskIdOrderByUpdatedAsc(task.id());
+        Duration countTime = Duration.ZERO;
+
+        if (!activities.isEmpty()) {
+            LocalDateTime start = null;
+            for (Activity latest : activities) {
+                if (latest.getStatusCode() != null) {
+                    if (start == null) {
+                        if (latest.getStatusCode().equals("in_progress")) {
+                            start = latest.getUpdated();
+                        }
+                    } else {
+                        if (latest.getStatusCode().equals("ready_for_review")
+                                || latest.getStatusCode().equals("canceled")) {
+                            countTime = countTime.plus(countTime(start, latest.getUpdated()));
+                            start = null;
+                        }
+                    }
+                }
+            }
+            if (start != null) {
+                countTime = countTime.plus(countTime(start, null));
+            }
+        }
+        return countTime.toHours();
+    }
+
+    public long countTestTime(long taskId){
+        Task task = taskRepository.getExisted(taskId);
+        List<Activity> activities = handler.getRepository().findAllByTaskIdOrderByUpdatedAsc(task.id());
+        Duration countTime = Duration.ZERO;
+
+        if (!activities.isEmpty()) {
+            LocalDateTime start = null;
+            for (Activity latest : activities) {
+                if (latest.getStatusCode() != null){
+                    if (start == null){
+                        if (latest.getStatusCode().equals("ready_for_review")){
+                            start = latest.getUpdated();
+                        }
+                    } else {
+                        if (latest.getStatusCode().equals("in_progress")
+                                        || latest.getStatusCode().equals("canceled")
+                                        || latest.getStatusCode().equals("done")){
+                            countTime = countTime.plus(countTime(start, latest.getUpdated()));
+                            start = null;
+                        }
+                    }
+                }
+            }
+            if (start != null) {
+                countTime = countTime.plus(countTime(start, null));
+            }
+        }
+        return countTime.toHours();
+    }
+
+    private Duration countTime (LocalDateTime start, LocalDateTime end){
+        if (start != null){
+            if (end != null){
+                return Duration.between(start, end);
+            }
+            return Duration.between(start, LocalDateTime.now());
+        }
+        return Duration.ZERO;
     }
 }
